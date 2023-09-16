@@ -1,0 +1,40 @@
+.header-wrap{
+    height: 56px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    margin-bottom: 16px;
+}
+.header-left{
+    cursor: pointer;
+}
+.logo-image{
+    background-image: url('../../assets/image/logo-web_clipdrop-background-removal.png');
+    width: 56px;
+    height: 56px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.logo-title{
+    font-size: 20px;
+    font-weight: 700;
+}
+.avatar-wrap{
+    position: relative;
+}
+.notiffication-wrapper{
+    position: relative;
+}
+.icon-count{
+    position: absolute;
+    color: var(--danger-color);
+    top: -4px;
+    right: -5px;
+}

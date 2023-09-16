@@ -1,0 +1,8 @@
+.main-content{
+    height: 100%;
+    width: calc(100vw - 200px - 16px);
+    flex: 1;
+    padding: 16px;
+    overflow: scroll;
+
+}

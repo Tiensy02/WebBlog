@@ -1,0 +1,77 @@
+.post-list-wrapper{
+    height: 100%;
+    margin-left: 12%;
+    overflow: scroll;
+}
+.post-list{
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.post-info{
+    display: flex;
+    column-gap: 8px;
+}
+.post-info-header{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+.post-author-wrap{
+    display: flex;
+    column-gap: 24px;
+}
+.post-author{
+    color :var(--primary-color)
+}
+.post-date{
+    color: #cccccc;
+}
+.post-title{
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+   width: 100%;
+   overflow-x: hidden;
+   text-overflow: ellipsis;
+}
+.post-more-info{
+    display: flex;
+    column-gap: 16px;
+    margin-top:8px;
+}
+.post-title:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.post-user-avatar:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.post-user-avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+}
+.ratting-number{
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+.ratting-core{
+    font-size: 16px;
+    color: #444444;
+    display: flex;
+    align-items: center;
+
+}
+.comment-number{
+    display: flex;
+    align-items: center;
+    color: #ababab;
+    column-gap: 8px;
+}

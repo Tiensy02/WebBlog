@@ -1,0 +1,35 @@
+.context-menu-wrapper{
+    position: absolute;
+    border-radius: 4px;
+    background-color: white;
+    padding:4px 0;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+    top:110%;
+    z-index: 10;
+    right: -2px;
+    white-space: nowrap;
+}
+.context-menu-item{
+    height: 36px;
+    display: flex;
+    padding:0 10px;
+    column-gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+}
+.context-menu-item:hover{
+    background-color: var(--secondary-color);
+}
+.item-active{
+    opacity: 0.5;
+}
+.context-menu-item.item-active:hover{
+    background-color: unset;
+}
+.context-menu-item.item-danger{
+    color: var(--danger-color);
+}
+.context-menu-item.item-wram{
+    color: var(--warm-color);
+}

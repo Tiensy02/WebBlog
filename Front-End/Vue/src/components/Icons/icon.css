@@ -1,0 +1,145 @@
+.icon-wrapper{
+    border-radius: 50%;
+	position: relative;
+}
+.icon-wrapper:hover{
+    background-color: var(--border-color)
+}
+.icon-wrapper.icon-no-hover:hover{
+    background-color: transparent;
+}
+.icon-check{
+    background: url('../../assets/image/sprites.06b14dc5.svg') no-repeat -52px -100px;
+	width: 16px !important;
+	height: 16px !important;
+}
+.icon-down{
+    background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -1372px -361px;
+	width: 8px;
+	height: 14px;
+    transform: rotate(-90deg);
+}
+.icon-set{
+    background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -144px -88px;
+	width: 24px;
+	height: 24px;
+}
+.icon-bag{
+    background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -165px -1589px;
+	width: 16px;
+	height: 18px;
+}
+.icon-close{
+    background: url('../../assets/image/CeGo_Sprites.c193503b.svg') no-repeat -197px -54px;
+	width: 13px;
+	height: 12px;
+}
+.icon-search{
+    background: url('../../assets/image/CeGo_Sprites.c193503b.svg') no-repeat -196px -28px;
+	width: 16px;
+	height: 16px;
+}
+.icon-notifi{
+	background: url('../../assets/image/sprites.06b14dc5.svg') no-repeat -26px -50px;
+	width: 19px;
+	height: 20px;
+}
+.icon-write{
+	background: url('../../assets/image/sprites.06b14dc5.svg') no-repeat -4px -76px;
+	width: 17px;
+	height: 16px;
+}
+.icon-avatar{
+	background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -352px -894px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+.icon-vi{
+	background-image: url('../../assets/image/Vietnam-icon.png');
+	width: 18px;
+	height: 18px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.icon-en{
+	background-image: url('../../assets/image/en-icon.png');
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.icon-user-page{
+	background: url('../../assets/image/sprites.06b14dc5.svg') no-repeat -173px -307px;
+	width: 15px;
+	height: 19px;
+}
+.icon-log-out{
+	background: url('../../assets/image/sprites.06b14dc5.svg') no-repeat -75px -75px;
+	width: 18px;
+	height: 19px;
+}
+.icon-login{
+	background:url('../../assets/image/sprites.06b14dc5.svg') no-repeat -51px -75px;
+	width: 18px;
+	height: 19px;
+}
+.icon-user{
+	background-image: url('../../assets/image/icons8-user-24.png');
+	width: 24px;
+	height: 24px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.icon-eye{
+	background-image: url('../../assets/image/icons8-eye-30.png');
+	width: 24px;
+	height: 24px;
+	background-size: contain;
+	opacity: 0.8;
+	background-repeat: no-repeat;
+}
+.icon-eye-close{
+	background-image: url('../../assets/image/eye-close.png');
+	width: 24px;
+	height: 24px;
+	background-size: contain;
+	opacity: 0.8;
+	background-repeat: no-repeat;
+}
+.icon-success{
+	background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -482px -146px;
+	width: 20px;
+	height: 20px;
+}
+.icon-warm{
+	background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -593px -145px;
+	width: 22px;
+	height: 23px;
+}
+.icon-danger{
+	background: url('../../assets/image/Sprites.64af8f61.svg') no-repeat -538px -146px;
+	width: 20px;
+	height: 20px;
+}
+.icon-0-rating{
+	background: url('../../assets/image/star-icon-black-set-rating-icon-black-set-icon-free-vector.jpg') no-repeat -136px -928px;;
+	height:24px;
+	width: 157px;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.icon-comment{
+	background-image: url('../../assets/image/icons8-comment-24.png');
+	width: 24px;
+	height:24px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.icon-dropdown{
+	background: url('../../assets/image/CeGo_Sprites.c193503b.svg') no-repeat -177px -7px;
+	width: 6px;
+	height: 10px;
+	transform: rotate(90deg);
+}

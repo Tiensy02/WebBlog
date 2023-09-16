@@ -1,0 +1,24 @@
+.post-form-wrap{
+    width: 80%;
+    position:absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    padding:16px;
+    z-index: 1000000;
+}
+.post-form-wrap{
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+
+}
+.post-form-action{
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 12px;
+}
+

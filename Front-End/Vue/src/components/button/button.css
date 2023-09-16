@@ -1,0 +1,124 @@
+.btn{
+    min-width:40px;
+    border: unset;
+    border-radius: 4px;
+    background-color: var(--normal-color);
+    cursor: pointer;
+    font-family: roboto;
+    padding: 0 5px;
+    font-size: 14px;
+    position:relative;
+}
+.btn:not(.btn-disable):hover{
+    background-color: var(--normal-focus-color);
+}
+.btn.btn-icon{
+    min-width: unset;
+    display: flex;
+    padding:8px;
+    align-items: center;
+}
+.btn.btn-with-icon{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 8px;
+    padding:5px;
+}
+.btn.btn-combo{
+    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    column-gap: 8px;
+}
+
+.btn.btn-link{
+    min-width: 60px;
+    background-color: transparent;
+    position: relative;
+    color: #3d3d3d;
+}
+.btn.btn-link::before{
+    content: "";
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    border-radius: none;
+    width: 0;
+    transition: width 0.3s ease;
+    background-color: var(--primary-color);
+}
+.btn.btn-link:not(.btn-disable):hover::before{
+    width: 100%;
+}
+.btn.btn-link:not(.btn-disable):hover{
+    color: black;
+}
+.btn.btn-link.btn-active::before{
+    width: 100%;
+}
+.btn-link:not(.btn-disable):hover{
+    background-color: transparent;
+    color: #201f1f;
+}
+.btn-primary{
+    background-color: var(--primary-color);
+    opacity: 0.8;
+}
+.btn-primary:not(.btn-disable):hover{
+    background-color: var( --primary-focus-color);
+}
+.btn-primary:focus{
+    background-color: var( --primary-focus-color);
+}
+.btn-secondary{
+    background-color: var(--secondary-color);
+    color: white;
+}
+.btn-secondary:not(.btn-disable):hover{
+    background-color: var(--secondary-focus-color);
+}
+.btn-secondary:focus{
+    background-color: var(--secondary-focus-color);
+}
+.btn-danger{
+    background-color: white;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+
+}
+.btn-danger:not(.btn-disable):hover{
+    background-color: var(--delete-color);
+}
+.btn-danger:focus{
+    background-color: var(--delete-color);
+
+}
+
+
+.btn-more{
+    margin-left: 8px;
+    position:relative;
+    transition:all 0.25s linear
+
+}
+.btn.btn-combo::before{
+    content: "";
+    height: 100%;
+    position:absolute;
+    border-left: 1px solid #e9e8e8;
+    right: 30px;
+
+}
+.btn-more:not(.btn-disable):hover {
+    transform: rotate(360deg);
+    opacity: 0.9;
+}
+
+.btn-disable{
+    opacity: 0.5;
+    cursor: unset;
+}
