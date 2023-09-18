@@ -27,9 +27,25 @@ class CommentService extends BaseService{
         const res = await this.baseAxios.get(url,params)
         return res.data
     }
+    /**
+     * @description hàm thực hiện thêm mới 1 comment gốc ( comment ko có comment cha )
+     * @param {Object} comment đối tượng comment cần thêm
+     * @returns 
+     */
     async postCommetRoot(comment){
         const url = "https://localhost:7070/CommentRoot"
         const res = await this.baseAxios.post(url,comment)
+        return res.data
+    }
+    /**
+     * @description hàm thực hiện lấy comment mới
+     * @param {Number} numberComment số comment muốn lấy
+     * @returns 
+     */
+    async getNewComment(numberComment) {
+        const url = this.endpoint("/NewComment")
+        const params = {numberComment}
+        const res = await this.baseAxios.get(url,{params})
         return res.data
     }
 }

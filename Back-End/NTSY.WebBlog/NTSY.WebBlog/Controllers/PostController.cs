@@ -29,10 +29,14 @@ namespace NTSY.WebBlog.Controllers
             return new PostWithPage {Posts=posts, TotalPost = totalPost };
         }
         [HttpGet("Filter")]
-        public async Task<IEnumerable<PostModel>> GetPostByFilter(string filter = "")
+        public async Task<PostWithPage> GetPostByFilter(int page, int pageSize, string filter = "")
         {
-            var result = await _postService.GetPostByFilter(filter);
-            return result;
+            var (posts,totalPost) = await _postService.GetPostByFilter(filter, page, pageSize);
+            return new PostWithPage()
+            {
+                Posts = posts,
+                TotalPost = totalPost
+            };
         }
         [HttpPut("RatingCore")]
         public async Task<IActionResult> UpdateRating(PostUpdateRating postUpdateRating)

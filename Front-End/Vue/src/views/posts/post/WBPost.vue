@@ -65,6 +65,8 @@ export default {
             console.log(err)
         }) 
         this.isLoadding = false
+        this.$store.commit('setIsShowPaging',false)
+        this.$store.commit('setIsPostList',false)
     },
     data(){
         return{

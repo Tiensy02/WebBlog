@@ -9,19 +9,29 @@ namespace NTSY.WebBlog.Domain
     public interface ICommentRepository : IBaseRepository<Comments>
     {
         /// <summary>
-        /// hàm lấy danh sách comment trong 1 bài viết có phân trang để hiển thị cho người dùng
+        /// hàm lấy danh sách comment trong 1 bài viết 
         /// </summary>
         /// <param name="postID">id của bài viết</param>
-        /// <param name="page">trang hiện tại của danh sách comment</param>
-        /// <param name="pageSize">tổng số bản ghi trên 1 trang trong danh sách comment</param>
         /// <returns></returns>
-        Task<(IEnumerable<CommentModel>,int)> GetCommentByPostIDForUI(Guid postID, int page, int pageSize);
+        Task<IEnumerable<CommentModel>> GetCommentByPostIDForUI(Guid postID);
         /// <summary>
         /// lấy danh sách comment trả lời của 1 comment
         /// </summary>
         /// <param name="commentParentID"> id của comment cha </param>
         /// <returns></returns>
         Task<IEnumerable<CommentModel>> GetCommentByCommentParentID(Guid commentParentID);
+        /// <summary>
+        /// hàm thực hiện thêm mới comment với comment đầu tiên
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
         Task PostCommentRoot(Comments comment);
+        /// <summary>
+        /// hàm thực hiện lấy những commnet mới nhất
+        /// </summary>
+        /// <param name="numberComment"> số lượng comment muốn lấy</param>
+        /// <returns></returns>
+        Task<IEnumerable<CommentModel>> GetNewComment(int numberComment);
+
     }
 }

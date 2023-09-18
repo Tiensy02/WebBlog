@@ -9,7 +9,7 @@
             </div>
             <div class="user-action">
                 <wb-button v-if="userCurrent != null &&  userCurrent.userID == user.userID" typeClassButton="btn-secondary" :textButton="$t('userAction.fix')"></wb-button>
-                <wb-button v-else-if="!userCurrent || userCurrent.userID != userID" typeClassButton="btn-secondary" :textButton="$t('userMenu.notiFollow')"></wb-button>
+                <wb-button v-else-if="!userCurrent || userCurrent.userID != user.userID" typeClassButton="btn-secondary" :textButton="$t('userMenu.notiFollow')"></wb-button>
                 <wb-button v-else :textButton="$t('userAction.unFollow')" typeClassButton="btn-secondary" :isDisabled="true"></wb-button>
             </div>
         </div>
@@ -20,7 +20,6 @@
         </div>
         <div class="user-containt">
             <div class="user-content">
-                <wb-table></wb-table>
             </div>
             <div class="user-info-table">
 
@@ -39,6 +38,7 @@ export default {
         this.getUserbyUserID(this.propUserID)
         this.getUsersFolloing(this.propUserID, 1, 10)
         this.getUsersFollowed(this.propUserID, 1, 10)
+        this.$store.commit('setIsShowPaging', true)
     },
 
     data(){
@@ -55,6 +55,14 @@ export default {
         propUserID:{
             type:String,
             default:"6601b158-505b-11ee-a114-0673c2320d10"
+        }
+    },
+    computed:{
+        isPostList(){
+            return this.$store.state.isPostList
+        },
+        isShowPaging(){
+            return this.$store.state.isShowPaging
         }
     },
 

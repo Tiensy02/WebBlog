@@ -277,6 +277,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('./table.css');
 </style>

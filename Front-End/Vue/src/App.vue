@@ -23,6 +23,7 @@ export default {
   <TheHeader></TheHeader>
   <div class="container">
   <TheMain></TheMain>
+  <theSidebar></theSidebar>
   </div>
   <Footer></Footer>
 </template>

@@ -62,7 +62,6 @@ p{
     display: flex;
     margin-top: calc(56px + 16px);
     height: calc(100vh - 56px - 16px);
-    column-gap: 16px;
     overflow: scroll;
     
 }

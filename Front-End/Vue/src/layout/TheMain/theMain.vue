@@ -3,48 +3,76 @@
         <router-view></router-view>
         <router-view name="post"></router-view>
         <router-view name='user-page'></router-view>
+        <wb-paging v-if="isShowPaging" :numberOfRecords="isPostList? postList.length :followList.length " 
+        :totalRecord="isPostList? totalPost : totalFollow" :pageCurrent="isPostList? pagePost : pageFollow" 
+        :pageSize="isPostList? pageSizePost : pageSizeFollow" @updatePageSize="updatePageSize" @clickAfterPage="clickAfterPage"
+        @clickPrePage="clickPrePage"></wb-paging>
     </div>
 </template>
 <script>
 import UserForm from '../../views/userPage/UserForm.vue';
-import CommentService from '../../service/comment-service';
 import PostList from '../../views/posts/postList/PostList.vue';
 import WBPost from '../../views/posts/post/WBPost.vue';
-import PostService from '../../service/post-service.js';
 export default {
     name: "the-main",
     data() {
         return {
-            isShowPostList: true,
-            isShowPost: false,
             postID: "",
             post: {},
             
         }
 
     },
+    computed:{
+        postList(){
+            return this.$store.state.postList;
+        },
+        pagePost(){
+            return this.$store.state.pagePost;
+        },
+        pageSizePost(){
+            return this.$store.state.pageSizePost;
+        },
+        totalPost(){
+            return this.$store.state.totalPost
+        },
+        followList(){
+            return this.$store.state.followList
+        },
+        pageFollow(){
+            return this.$store.state.pageFollow;
+        },
+        pageSizeFollow(){
+            return this.$store.state.pageSizeFollow;
+        },
+        totalFollow(){
+            return this.$store.state.totalFollow
+        },
+        isPostList(){
+            return this.$store.state.isPostList
+        },
+        isShowPaging(){
+            return this.$store.state.isShowPaging
+        }
+    },
     methods: {
-        async handlerClickPostAsync(postID) {
-            console.log(postID)
-            this.postID = postID
-            await new PostService().getPostById(this.postID)
-                .then(res => {
-                    this.post = res
-                    new CommentService().getCommentByPostId(this.postID)
-                    .then(res => {
-                        this.post.numberComment = res.totalComment
-                        console.log(this.post.numberComment)
-                    })
-                    .catch(err=>{
-                        console.log(err)
-                    })
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            this.isShowPostList = false
-            this.isShowPost = true
-
+        clickPrePage(){
+            if(this.isPostList) {
+                this.$store.commit('setPagePostCurrent', this.pagePost  - 1 )
+                this.$store.dispatch("getPostListAsync", {page:this.pagePost, pageSize:this.pageSizePost})
+            } else {
+                this.$store.commit('setPageFollowCurrent', this.pageFollow  - 1 )
+                this.$store.dispatch("getPostListAsync", {page:this.pagePost, pageSize:this.pageSizePost})
+            }
+        },
+        updatePageSize(newPageSize){
+            this.$store.commit('setPagePostSize',newPageSize)
+            this.$store.commit('setPagePostCurrent', 1 )
+            this.$store.dispatch("getPostListAsync", {page:this.pagePost, pageSize:this.pageSizePost})
+        },
+        clickAfterPage(){
+            this.$store.commit('setPagePostCurrent', this.pagePost + 1 )
+            this.$store.dispatch("getPostListAsync", {page:this.pagePost, pageSize:this.pageSizePost})
         }
     },
     components: {

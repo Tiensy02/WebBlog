@@ -40,6 +40,14 @@ export default {
             postElemnt: []
         }
     },
+    computed:{
+        pagePost(){
+            return this.$store.state.pagePost;
+        },
+        pageSizePost(){
+            return this.$store.state.pageSizePost;
+        },
+    },
     methods: {
         updateTextAreaValue(datainput) {
 
@@ -59,8 +67,8 @@ export default {
                     .then(res => {
                         createToast(this.$t('userMenu.signUpSuccess'), "success")
                         this.$store.dispatch("getPostListAsync", {
-                            page: 1,
-                            pageSize: 100
+                            page: this.pagePost,
+                            pageSize: this.pageSizePost
                         });
                         this.$emit("closePostForm")
                     })

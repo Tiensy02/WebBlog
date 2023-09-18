@@ -155,13 +155,14 @@ export default {
          * @description hàm thực hiện xử lý sự kiện click vào menu User
          * @param {Number} id id của contextMenu    
          */
-        handlerUserInfo(id) {
+        async handlerUserInfo(id) {
             if (id == this.$_WBEnum.MENU_USERS.LOGIN) {
                 this.nameForm = this.$_WBEnum.MENU_USERS.LOGIN
                 this.isShowUserform = true
             } else if(id == this.$_WBEnum.MENU_USERS.LOG_OUT) {
                 localStorage.removeItem("user")
-                this.$router.push({name:"home"})
+                await this.$router.push({name:"home"})
+                location.reload()
             } else {
                 this.$router.push({name:"user-page",params:{userID:this.user.userID}})
             }

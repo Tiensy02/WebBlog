@@ -29,18 +29,24 @@ namespace NTSY.WebBlog.Application
             return result1;
         }
         /// <summary>
-        /// hàm lấy tất cả comment của 1 bài viết ( comment ko có comment cha ) có phân trang
+        /// hàm lấy tất cả comment của 1 bài viết ( comment ko có comment cha )
         /// </summary>
         /// <param name="postID"></param>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<(IEnumerable<CommentDto>, int)> GetCommentByPostIDForUI(Guid postID, int page, int pageSize)
+        public async Task<IEnumerable<CommentDto>> GetCommentByPostIDForUI(Guid postID)
         {
-            var (result ,totalRecord) = await _commentRepository.GetCommentByPostIDForUI(postID, page, pageSize);
+            var result = await _commentRepository.GetCommentByPostIDForUI(postID);
             var result1 = _mapper.Map<IEnumerable<CommentDto>>(result);
-            return (result1, totalRecord);
+            return result1;
         }
+
+        public async Task<IEnumerable<CommentDto>> GetNewComment(int numberComment)
+        {
+            var comments = await _commentRepository.GetNewComment(numberComment);
+            var result = _mapper.Map<IEnumerable<CommentDto>>(comments);
+            return result;
+        }
+
         public async Task PostCommentRoot(CommentInsertForPostDto commentDto)
         {
             var comment = _mapper.Map<Comments>(commentDto);

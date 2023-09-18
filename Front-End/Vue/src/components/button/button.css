@@ -67,6 +67,7 @@
 .btn-primary{
     background-color: var(--primary-color);
     opacity: 0.8;
+    color: white;
 }
 .btn-primary:not(.btn-disable):hover{
     background-color: var( --primary-focus-color);

@@ -38,9 +38,9 @@ export default {
          * @param {Guid} postID id của bài viết
          */
         async createdComments(postID){
-            await new CommentService().getCommentByPostId(postID, 1, this.$store.state.pageSizeComment)
+            await new CommentService().getCommentByPostId(postID)
             .then(res => {
-                this.comments = res.comments
+                this.comments = res
             })
             .catch(err => { 
                 console.log(err)

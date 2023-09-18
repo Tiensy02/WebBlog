@@ -23,10 +23,10 @@ namespace NTSY.WebBlog
         }
         [HttpGet("{id}/comment-post")]
 
-        public async Task<CommentWithPageDto> GetCommentByPostIDForUI( Guid id, int page,  int pageSize)
+        public async Task<IEnumerable<CommentDto>> GetCommentByPostIDForUI( Guid id)
         {
-            var (comments, totalComments) = await _commentService.GetCommentByPostIDForUI(id, page, pageSize);
-            return new CommentWithPageDto { Comments = comments, TotalComment = totalComments };
+            var comments = await _commentService.GetCommentByPostIDForUI(id);
+            return comments;
              
         }
         [HttpPost("/CommentRoot")]
@@ -35,6 +35,12 @@ namespace NTSY.WebBlog
             await _commentService.PostCommentRoot(comment);
             return StatusCode(StatusCodes.Status201Created);
             
+        }
+        [HttpGet("NewComment")]
+        public async Task<IEnumerable<CommentDto>> getNewComment(int numberComment)
+        {
+            var result = await _commentService.GetNewComment(numberComment);
+            return result;
         }
     }
 }

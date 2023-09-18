@@ -102,7 +102,6 @@ export default {
     },
     watch: {
         ratingCoreValue(newValue) {
-            console.log(newValue)
             this.selectValue(newValue)
         }
     },

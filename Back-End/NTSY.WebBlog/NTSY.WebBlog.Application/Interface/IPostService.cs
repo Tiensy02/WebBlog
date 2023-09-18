@@ -28,7 +28,7 @@ namespace NTSY.WebBlog.Application
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        Task<IEnumerable<PostModel>> GetPostByFilter(string filter);
+        Task<(IEnumerable<PostModel>,int)> GetPostByFilter(string filter, int page, int pageSize);
         /// <summary>
         /// hàm thực hiện cập nhập điểm đánh giá và lượt đánh giá của bài viết
         /// </summary>

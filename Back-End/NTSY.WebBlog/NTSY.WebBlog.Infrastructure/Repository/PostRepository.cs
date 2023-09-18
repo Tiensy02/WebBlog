@@ -15,12 +15,16 @@ namespace NTSY.WebBlog.Infrastructure
         {
         }
 
-        public Task<IEnumerable<PostModel>> GetPostByFilter(string filter)
+        public async Task<(IEnumerable<PostModel>, int)> GetPostByFilter(string filter, int page, int pageSize)
         {
             var param = new DynamicParameters();
             param.Add("@textSearch", filter);
-            var result = _uow.Connection.QueryAsync<PostModel>("Proc_Posts_Filter", param, commandType: CommandType.StoredProcedure);
-            return result;
+            param.Add("@page", page);
+            param.Add("@pageSize", pageSize);
+            param.Add("totalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
+            var result = await _uow.Connection.QueryAsync<PostModel>("Proc_Posts_Filter", param, commandType: CommandType.StoredProcedure);
+            var totalRecord = param.Get<int>("totalRecord");
+            return (result, totalRecord);
 
         }
 
@@ -30,7 +34,7 @@ namespace NTSY.WebBlog.Infrastructure
         /// <param name="postID"> id của bài viết</param>
         /// <returns></returns>
         public async Task<PostModel> GetPostByID(Guid postID)
-        {
+        {   
             var param = new DynamicParameters();
             param.Add("id", postID);
             var result = await _uow.Connection.QueryFirstOrDefaultAsync<PostModel>("Proc_Posts_GetPostByID", param, commandType:CommandType.StoredProcedure);

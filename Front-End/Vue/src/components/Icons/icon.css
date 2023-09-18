@@ -143,3 +143,17 @@
 	height: 10px;
 	transform: rotate(90deg);
 }
+.icon-prev{
+	background: url('../../assets/image/CeGo_Sprites.c193503b.svg') no-repeat -56px -165px;
+	width: 7px;
+	height: 14px;
+	transform: rotate(-180deg);
+}
+.icon-after{
+	background: url('../../assets/image/CeGo_Sprites.c193503b.svg') no-repeat -56px -165px;
+	width: 7px;
+	height: 14px;
+}
+.WB-icon.no-active{
+	opacity: 0.5;
+}

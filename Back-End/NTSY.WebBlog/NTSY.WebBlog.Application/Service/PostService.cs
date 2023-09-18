@@ -18,9 +18,9 @@ namespace NTSY.WebBlog.Application
             _postRepository = postRepository;
         }
 
-        public async Task<IEnumerable<PostModel>> GetPostByFilter( string filter)
+        public async Task<(IEnumerable<PostModel>, int)> GetPostByFilter( string filter, int page, int pageSize)
         {
-            var result = await _postRepository.GetPostByFilter(filter);
+            var result = await _postRepository.GetPostByFilter(filter, page, pageSize);
             return result;
         }
 

@@ -6,6 +6,12 @@ const en = {
       totalPaging:"records/page",
       total:"Total",
       record:"Records",
+      resource:'Resources',
+      feedBack:'FeedBack',
+      newPost:'New Post',
+      help:'Help',
+      links:'Links',
+      newComment:"New Comments",
       gender: {
         male: "Male",
         female: "Female",

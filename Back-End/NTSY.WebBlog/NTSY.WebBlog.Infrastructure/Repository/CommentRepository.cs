@@ -30,16 +30,12 @@ namespace NTSY.WebBlog.Infrastructure
             return result;
         }
 
-        public async Task<(IEnumerable<CommentModel>, int)> GetCommentByPostIDForUI(Guid postID, int page, int pageSize)
+        public async Task<IEnumerable<CommentModel>> GetCommentByPostIDForUI(Guid postID)
         {
             var param = new DynamicParameters();
             param.Add("PostID", postID);
-            param.Add("page", page);
-            param.Add("pageSize", pageSize);
-            param.Add("totalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
             var result = await _uow.Connection.QueryAsync<CommentModel>("Proc_Comments_GetCommentWithPage", param, commandType: CommandType.StoredProcedure);
-            int totalRecord = param.Get<int>("totalRecord");
-            return (result, totalRecord);
+            return result;
 
         }
 
@@ -56,6 +52,14 @@ namespace NTSY.WebBlog.Infrastructure
             }
             await _uow.Connection.ExecuteAsync("Proc_Comment_InsertRoot", param, commandType: CommandType.StoredProcedure);
 
+        }
+
+        public async Task<IEnumerable<CommentModel>> GetNewComment(int numberComment)
+        {
+            var param = new DynamicParameters();
+            param.Add("@numberComment", numberComment);
+            var result = await _uow.Connection.QueryAsync<CommentModel>("Proc_Comments_GetNewComments", param,commandType:CommandType.StoredProcedure);
+            return result;
         }
     }
 }

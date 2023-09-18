@@ -32,7 +32,6 @@
             </div>
         </div>
         <wb-loadding :isLoadding="isLoadding"></wb-loadding>
-        <wb-paging></wb-paging>
     </div>
 </template>
 <script>
@@ -47,13 +46,22 @@ export default {
             postList, post
         };
     },
+
     async mounted() {
+        // thực hiện lấy danh sách bài viết
         this.isLoadding = true;
         await this.$store.dispatch("getPostListAsync", {
-            page: 1,
-            pageSize: 10
+            page: this.pagePost,
+            pageSize: this.pageSizePost
         });
         this.isLoadding = false;
+        // thực hiện set trạng thái phân trang
+        this.$store.commit('setIsShowPaging',true)
+        this.$store.commit('setIsPostList',true)
+    },
+    destroyed() {
+        this.$store.commit('setIsShowPaging',true)
+        this.$store.commit('setIsPostList',false)
     },
     data() {
         return {
@@ -64,7 +72,19 @@ export default {
     },
     computed: {
         Posts() {
-            return this.$store.state.PostList;
+            return this.$store.state.postList;
+        },
+        pagePost(){
+            return this.$store.state.pagePost;
+        },
+        pageSizePost(){
+            return this.$store.state.pageSizePost;
+        },
+        isPostList(){
+            return this.$store.state.isPostList
+        },
+        isShowPaging(){
+            return this.$store.state.isShowPaging
         }
     },
     methods: {

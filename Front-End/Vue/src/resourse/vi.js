@@ -6,6 +6,12 @@ const vi = {
       totalPaging:"Số bản ghi/trang",
       total:"Tổng số",
       record:"Bản ghi",
+      resource:'Tài nguyên',
+      feedBack:'Phản hồi',
+      help:'Giúp đỡ',
+      newComment:"Bình luận mới",
+      links:'Liên hệ',
+      newPost:'Bài viết mới',
       gender: {
         male: "Nam",
         female: "Nữ",

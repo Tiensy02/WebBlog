@@ -4,18 +4,16 @@
     justify-content: space-between;
     align-items: center;
     height: 40px;
-    width: 100%;
     padding:0 16px;
     
 }
 
 .select-record {
     width: 86px;
-   
 }
 .paging{
     display: flex;
-    column-gap: 36px;
+    column-gap: 16px;
     align-items: center;
 }
 

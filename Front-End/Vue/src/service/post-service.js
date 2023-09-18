@@ -15,15 +15,27 @@ class PostService extends BaseService{
         const res = await this.baseAxios.get(url,{params})
         return res.data
     }
+    /**
+     * @description hàm thực hiện lấy thông tin cụ thể của 1 bài viết
+     * @param {GUID} postID id của bài viết
+     * @returns 
+     */
     async getPostById(postID) {
         const url = this.endpoint(`/${postID}/post-content`)
         const params = {postID}
         const res = await this.baseAxios.get(url,{params})
         return res.data
     }
-    async getPostByFilter(filter) {
+    /**
+     * @description hàm thực hiện lấy danh sách bài viết phù hợp với ký tự tìm kiếm có thực hiện phân trang
+     * @param {String} filter ký tự tìm kiếm
+     * @param {Nummber} page trang hiện tại
+     * @param {Number} pageSize tổng số trang trên bản ghi
+     * @returns 
+     */
+    async getPostByFilter(filter, page, pageSize) {
         const url = this.endpoint("/Filter")
-        const params = {filter}
+        const params = {filter,page, pageSize}
             const res = await this.baseAxios.get(url,{params})
             return res.data
     }
