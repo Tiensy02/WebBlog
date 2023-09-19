@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import WBPost from '../views/posts/post/WBPost.vue'
 import PostService from '../service/post-service.js';
 import PostList from '../views/posts/postList/PostList.vue'
-  import UserPage from '../views/userPage/UserPage.vue'
+import UserPage from '../views/userPage/UserPage.vue'
 const router = createRouter({
     history:createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -30,7 +30,6 @@ const router = createRouter({
             name:"post-of-user",
             props:true
         },
-        
       ]
 })
 export default router;

@@ -2,6 +2,7 @@
     height: calc(100% - 40px);
     margin-left: 12%;
     overflow: scroll;
+
 }
 .post-list{
     margin-bottom: 12px;

@@ -57,6 +57,19 @@
 .btn.btn-link:not(.btn-disable):hover{
     color: black;
 }
+.btn-link.btn-active::before{
+    content: "";
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    border-radius: none;
+    width: 0;
+    background-color: var(--primary-color);
+}
+.btn-link.btn-active{
+    color: black;
+}
 .btn.btn-link.btn-active::before{
     width: 100%;
 }
@@ -122,4 +135,8 @@
 .btn-disable{
     opacity: 0.5;
     cursor: unset;
+}
+.btn-transparent{
+    background-color: transparent;
+    color: black;
 }

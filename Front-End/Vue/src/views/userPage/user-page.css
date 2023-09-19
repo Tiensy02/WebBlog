@@ -19,17 +19,15 @@
     display: flex;
     column-gap: 6px;
     border-top: 1px solid #ccc ;
+    border-right: 1px solid #efefef;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2) ;
     justify-content: flex-start;
-    width: calc(100% + 16px + 16px);
     padding: 0 16px;
     align-items: center;
     margin-left: -16px;
-    margin-right: -16px;
 }
 .user-containt{
     width: 100%;
-    min-height: calc(100% - 46px - 56px - 16px - 16px) ;
-    background-color: aqua; 
+    height: calc(100% - 46px - 56px - 16px - 16px) ;
     margin-top: 16px;
 }

@@ -63,6 +63,7 @@ p{
     margin-top: calc(56px + 16px);
     height: calc(100vh - 56px - 16px);
     overflow: hidden;
+    position:relative;
     
 }
 ::-webkit-scrollbar {

@@ -2,9 +2,9 @@
     <div class="user-page-wrap">
         <div class="user-info-wrap">
             <div class="user-info">
-                <cloud-image width="52px" height = "52px" :path="userCurrent.userAvatar" ></cloud-image>
+                <cloud-image width="52px" height = "52px" :path="user.userAvatar" ></cloud-image>
                 <div class="user-name">
-                    {{ userCurrent.userName }}
+                    {{ user.userName }}
                 </div>
             </div>
             <div class="user-action">
@@ -14,21 +14,18 @@
             </div>
         </div>
         <div class="user-page-list">
-            <wb-button typeButton="buttonLink" :textButton="$t('userForm.post')"></wb-button>
+            <wb-button typeButton="buttonLink" :textButton="$t('userForm.post')" @handlerClickButton="clickItemPost" :moreClass="isShowPosts? 'btn-active' : ''"></wb-button>
             <wb-button typeButton="buttonLink" :textButton="$t('userForm.followed')"></wb-button>
             <wb-button typeButton="buttonLink" :textButton="$t('userForm.following')"></wb-button>
         </div>
         <div class="user-containt">
-            <div class="user-content">
-            </div>
-            <div class="user-info-table">
+            <PostList v-if="isShowPosts"></PostList>
 
-            </div>
         </div>
     </div>
 </template>
 <script>
-
+import PostList from '../posts/postList/PostList.vue'
 import createToast from '../../helpper/createToastMess.js'
 import FollowService from '../../service/follow-service.js'
 import UserService from '../../service/user-service.js'
@@ -39,14 +36,20 @@ export default {
         this.getUsersFolloing(this.propUserID, 1, 10)
         this.getUsersFollowed(this.propUserID, 1, 10)
         this.$store.commit('setIsShowPaging', true)
-    },
+        this.$store.commit("setUserIDSelected", this.propUserID)
+        this.$store.commit("setIsPostListOfUser",true)
 
+    },
+    beforeUnmount(){
+        this.$store.commit("setIsPostListOfUser",false)
+    },
     data(){
         return {
             userCurrent:JSON.parse(localStorage.getItem("user")),
             user:{},
             usersFollowed:[], // danh sách người dùng được this.user follow
-            usersFollowing:[] // danh sách người dùng follow this.user
+            usersFollowing:[], // danh sách người dùng follow this.user
+            isShowPosts:true
         }
     },
 
@@ -74,7 +77,7 @@ export default {
         async getUserbyUserID(userID){
             await new UserService().getByID(userID)
             .then(res => {
-                res = this.user
+               this.user = res
             })
             .catch(err => {
                 createToast(this.$t('validate.errorCommon'),"danger")
@@ -107,7 +110,14 @@ export default {
                 console.log(err)
                 createToast(this.$t('validate.errorCommon'),"danger")
             })
+        },
+        clickItemPost(){
+            this.$store.commit("setIsPostListOfUser",true)
+            this.isShowPosts = true
         }
+    },
+    components:{
+        PostList
     }
 }
 </script>

@@ -54,12 +54,15 @@ class PostService extends BaseService{
     /**
      * @description hàm thực hiện lấy danh sách bài viết của người dùng cụ thể
      * @param {GUID} userID id của người dùng
+     * @param {Number} page trang hieenj 
      * @returns 
      */
-    async getPostOfUser(userID){
+    async getPostOfUser(userID, page, pageSize){
         const url = this.endpoint(`/User/${userID}`)
-        const params = {userID}
-        const res = await this.baseAxios.get(url, params)
+        const params = {userID, page, pageSize}
+
+        const res = await this.baseAxios.get(url, {params})
+        console.log(res)
         return res.data
     }
 }

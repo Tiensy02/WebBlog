@@ -26,10 +26,10 @@ export default {
     },
     data() {
         return {
-            recordsPaging: [{ id: "1", name: "10" },
-            { id: "2", name: "20" },
-            { id: "3", name: "50" },
-            { id: "4", name: "100" }],
+            recordsPaging: [{ id: "1", name: 10 },
+            { id: "2", name: 20 },
+            { id: "3", name: 50 },
+            { id: "4", name: 100 }],
             isNextPageAbel: true,
             isPrevPageAbel: true
         }
@@ -71,7 +71,6 @@ export default {
         numberOfRecords(newValue){
             this.checkAfterPageAbel()
             this.checkPrevPageAbel()
-            console.log("co vao khong")
         },
         pageCurrent(newValue) {
             this.checkAfterPageAbel()
@@ -105,7 +104,8 @@ export default {
          clickPrePage() {
             this.checkPrevPageAbel();
             if (this.isPrevPageAbel) {
-                this.$emit('clickPrePage')
+                let isClickPrePage = true
+                this.$emit('clickPrePage',isClickPrePage )
                 this.isNextPageAbel = true
                 this.checkPrevPageAbel()
             }
@@ -115,7 +115,8 @@ export default {
         clickAfterPage() {
             this.checkAfterPageAbel()
             if (this.isNextPageAbel) {
-                this.$emit('clickAfterPage')
+                let isClickPrePage = false
+                this.$emit('clickAfterPage',isClickPrePage)
                 this.isPrevPageAbel = true
                 if ((this.pageCurrent) * this.pageSize >= this.totalRecord) {
                     this.isNextPageAbel = false

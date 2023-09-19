@@ -1,5 +1,5 @@
 <template>
-    <button class="btn" :disabled="isDisabled" :class="[getClassButton(typeButton),{'btn-disable': isDisabled}, typeClassButton]" :style="styleButton"
+    <button class="btn" :disabled="isDisabled" :class="[getClassButton(typeButton),{'btn-disable': isDisabled}, typeClassButton, moreClass ]" :style="styleButton"
         @click="!isContextMenu? handlerClickButton() : toggleIsShowContextMenu()">
         <wb-icon v-if="iconName != ''"  :iconName="iconName"
             :disable="true"></wb-icon>
@@ -107,6 +107,11 @@ export default {
         isDisabled:{
             type:Boolean,
             default:false
+        },
+        // thêm 1 class nếu button có kiểu css riêng
+        moreClass:{
+            type:String,
+            default:""
         }
     },
     methods: { 

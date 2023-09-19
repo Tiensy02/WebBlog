@@ -14,9 +14,9 @@
                 <WBNotification v-if="isShowNotification" :propNotifications="this.notifications"></WBNotification>
             </div>
             <wb-icon iconName="icon-write" :isHover="true" @handllerClickIcon="isShowPostForm = !isShowPostForm"></wb-icon>
-            <wb-button typeButton="buttonWithIcon" :isContextMenu="true" :iconName="iconNameLang" color="white"
+            <wb-button typeButton="buttonWithIcon" :isContextMenu="true" :iconName="iconNameLang" color="black"
                 :textButton="textButtonLang" :itemsForButton="langCodes" widthContextMenu="50px" :isIconContextMenu="true"
-                @handlerClickItemOfContextMenuOnButton="toggleLanguage($event)"></wb-button>
+                moreClass="btn-transparent" @handlerClickItemOfContextMenuOnButton="toggleLanguage($event)"></wb-button>
                 <cloud-image v-if="user" :path="user.userAvatar" >
                     <wb-icon :iconName="(user)?  user.userAvatar : 'icon-avatar' " width="36px" height="36px" :isContextMenu="true" :isIconContextMenu="true"
                 :itemOfIcon="hasUser? menuUserLogOut : menuUserLogin" widthContextMenu="50px"
@@ -54,6 +54,14 @@ export default {
     components: {
         UserForm, WBNotification,postForm
     },
+    computed:{
+        pagePost(){
+            return this.$store.state.pagePost
+        },
+        pageSizePost(){
+            return this.$store.state.pageSizePost
+        }
+    },
     data() {
         return {
             iconNameLang: `icon-${localStorage.getItem("langCode")}`,
@@ -86,21 +94,14 @@ export default {
          */
         searchInput(value){
             if( value.trim() != "") {
-                new PostService().getPostByFilter(value)
-                .then(res => {
-                    this.$store.commit("setPostList",res)
-                })
-                .catch(err =>{
-                    console.log(err)
-                })
+                this.$store.commit("setIsSearch", true)
+                this.$store.commit("setPagePostCurrent",1)
+                this.$store.commit("setTextSearch",value)
+                this.$store.dispatch("getPostForSearch", {textSearch:value, page: this.pagePost, pageSize: this.pageSizePost})
             }else {
-                new PostService().getPostListForUI(1,this.$store.state.pageSizePost)
-                .then (res => {
-                    this.$store.commit("setPostList",res.posts)
-                })
-                .catch(err => {
-                    console.log(err) 
-                })
+                this.$store.commit("setIsSearch",false)
+                this.$store.commit("setPagePostCurrent",1)
+                this.$store.dispatch("getPostListAsync", { page: this.pagePost, pageSize: this.pageSizePost})
             }
         },
         /**

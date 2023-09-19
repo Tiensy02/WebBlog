@@ -11,7 +11,7 @@
                             {{ post.userName }}
                         </div>
                         <div class="post-date">
-                            {{ this.converDatePost(post.createDate)  }}
+                            {{ this.converDatePost(post.createDate) }}
                         </div>
                     </div>
                     <div class="post-title" @click="handlerClickPost(post.postID)">
@@ -21,14 +21,15 @@
             </div>
             <div class="post-more-info">
                 <div class="ratting-core">
-                    <rating-star :PropIsRating="false" :ratingCoreValue="post.postRatingCore" :postID="post.postID"></rating-star>
+                    <rating-star :PropIsRating="false" :ratingCoreValue="post.postRatingCore"
+                        :postID="post.postID"></rating-star>
                     {{ ` ( ${post.postRattingNumber} )` }}
                 </div>
                 <div class="comment-number">
                     <wb-icon iconName="icon-comment"></wb-icon>
                     {{ post.numberCommentOfPost }}
                 </div>
-               
+
             </div>
         </div>
         <wb-loadding :isLoadding="isLoadding"></wb-loadding>
@@ -48,25 +49,23 @@ export default {
     },
 
     async mounted() {
-        // thực hiện lấy danh sách bài viết
-        this.isLoadding = true;
-        await this.$store.dispatch("getPostListAsync", {
-            page: this.pagePost,
-            pageSize: this.pageSizePost
-        });
-        this.isLoadding = false;
+        this.getPostList()
         // thực hiện set trạng thái phân trang
-        this.$store.commit('setIsShowPaging',true)
-        this.$store.commit('setIsPostList',true)
-    },
-    destroyed() {
-        this.$store.commit('setIsShowPaging',true)
-        this.$store.commit('setIsPostList',false)
+        this.$store.commit('setIsShowPaging', true)
+        this.$store.commit('setIsPostList', true)
+        if(this.isPostListOfUser) {
+            this.postList.style.height = "100%"
+            this.postList.style.marginLeft = "0"
+        }else {
+            this.postList.style.height = "calc(100%  - 40px)"
+            this.postList.style.marginLeft = "12%"
+            console.log("heheh")
+        }
     },
     data() {
         return {
             isLoadding: false,
-            
+
         };
 
     },
@@ -74,17 +73,20 @@ export default {
         Posts() {
             return this.$store.state.postList;
         },
-        pagePost(){
+        pagePost() {
             return this.$store.state.pagePost;
         },
-        pageSizePost(){
+        pageSizePost() {
             return this.$store.state.pageSizePost;
         },
-        isPostList(){
+        isPostList() {
             return this.$store.state.isPostList
         },
-        isShowPaging(){
+        isShowPaging() {
             return this.$store.state.isShowPaging
+        },
+        isPostListOfUser() {
+            return this.$store.state.isPostListOfUser
         }
     },
     methods: {
@@ -100,7 +102,7 @@ export default {
          * @param {Guid} postID id của bài viết
          */
         async handlerClickPost(postID) {
-            this.$router.push({name:'post',params:{postID:postID}});
+            this.$router.push({ name: 'post', params: { postID: postID } });
         },
         handlerClickUser(userID) {
 
@@ -112,9 +114,9 @@ export default {
         converRatingCore(core) {
             core = Number(core)
             var newCore = Number(core.toFixed(2))
-            if(newCore % 1  == 0 ) {
-                return newCore 
-            } else{
+            if (newCore % 1 == 0) {
+                return newCore
+            } else {
 
                 var coreDecimal = (newCore % 1).toFixed(2);
                 if (coreDecimal <= 0.25) {
@@ -126,6 +128,26 @@ export default {
                 }
             }
         },
+        /**
+         * @description hàm thực hiện lấy danh sách bài viết để sử dụng cho component postList
+         */
+        async getPostList() {
+            this.isLoadding = true; 
+            if ( this.isPostListOfUser ) {
+            console.log("jeele")
+                await this.$store.dispatch("getPostOfUser",{
+                    id:this.$route.params.userID,
+                    page:this.pagePost,
+                    pageSize:this.pageSizePost
+                });
+            }else {
+                await this.$store.dispatch("getPostListAsync", {
+                    page: this.pagePost,
+                    pageSize: this.pageSizePost
+                });
+            }
+            this.isLoadding = false;
+        }
     },
 }
 </script>
