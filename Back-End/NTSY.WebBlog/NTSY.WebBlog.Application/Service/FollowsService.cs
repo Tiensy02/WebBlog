@@ -20,9 +20,9 @@ namespace NTSY.WebBlog.Application
         /// </summary>
         /// <param name="userFlollowID">id của người dùng được follow</param>
         /// <returns></returns>
-        public async Task<(IEnumerable<FollowModel>,int)> GetUserFlollowed(Guid userFlollowID, int page, int pageSize)
+        public async Task<(IEnumerable<FollowModel>,int)> GetUserFlollowed(Guid userFlollowID, Guid userCurrentID, int page, int pageSize)
         {
-            var result = await _followsRepository.GetUserFlollowed(userFlollowID,page,pageSize);
+            var result = await _followsRepository.GetUserFlollowed(userFlollowID, userCurrentID, page,pageSize);
             return result;
         }
         /// <summary>
@@ -30,9 +30,9 @@ namespace NTSY.WebBlog.Application
         /// </summary>
         /// <param name="userFollowingID"> id của người đi follow</param>
         /// <returns></returns>
-        public async Task<(IEnumerable<FollowModel>, int)> GetUserFollowing(Guid userFollowingID, int page, int pageSize)
+        public async Task<(IEnumerable<FollowModel>, int)> GetUserFollowing(Guid userFollowingID, Guid userCurrentID, int page, int pageSize)
         {
-            var result = await _followsRepository.GetUserFollowing(userFollowingID, page, pageSize);
+            var result = await _followsRepository.GetUserFollowing(userFollowingID, userCurrentID, page, pageSize);
             return result;
         }
     }

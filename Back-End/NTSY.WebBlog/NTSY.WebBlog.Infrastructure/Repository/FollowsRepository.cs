@@ -20,11 +20,12 @@ namespace NTSY.WebBlog.Infrastructure
         /// <param name="userFlollowID">id của người được theo dõi</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<(IEnumerable<FollowModel>,int)> GetUserFlollowed(Guid userFlollowID, int page, int pageSize)
+        public async Task<(IEnumerable<FollowModel>,int)> GetUserFlollowed(Guid userFlollowID, Guid userCurrentID, int page, int pageSize)
         {
             var param = new DynamicParameters();
             param.Add("FollowedID", userFlollowID);
             param.Add("page", page);
+            param.Add("userCurrentID", userCurrentID);
             param.Add("pageSize", pageSize);
             param.Add("totalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
             var result = await _uow.Connection.QueryAsync<FollowModel>("Proc_Follows_GetUserFollowed", param, commandType: System.Data.CommandType.StoredProcedure);
@@ -37,11 +38,12 @@ namespace NTSY.WebBlog.Infrastructure
         /// <param name="userFollowingID"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<(IEnumerable<FollowModel>,int)> GetUserFollowing(Guid userFollowingID, int page, int pageSize)
+        public async Task<(IEnumerable<FollowModel>,int)> GetUserFollowing(Guid userFollowingID, Guid userCurrentID, int page, int pageSize)
         {
             var param = new DynamicParameters();
             param.Add("UserFollowID", userFollowingID);
             param.Add("page", page);
+            param.Add("userCurrentID", userCurrentID);
             param.Add("pageSize", pageSize);
             param.Add("totalRecord", dbType:DbType.Int32, direction: ParameterDirection.Output);
             var result = await _uow.Connection.QueryAsync<FollowModel>("Proc_Follow_GetUserFollowing",param,commandType: System.Data.CommandType.StoredProcedure);

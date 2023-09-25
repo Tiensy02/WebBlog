@@ -19,6 +19,7 @@ export default {
         return {
             postID: "",
             post: {},
+            user:JSON.parse( localStorage.getItem("user") )
         }
 
     },
@@ -98,9 +99,9 @@ export default {
                     this.$store.commit('setPageFollowCurrent', this.pageFollow + 1)
                 }
                 if(this.isFollowedList) {
-                    this.$store.dispatch("getFollowedList", { page: this.pageFollow, pageSize: this.pageSizeFollow })
+                    this.$store.dispatch("getFollowedList", { id:this.userIDSelected,userCurrentID:this.user? this.user.userID : null, page: this.pageFollow, pageSize: this.pageSizeFollow })
                 }else {
-                    this.$store.dispatch("getFollowingList", { page: this.pageFollow, pageSize: this.pageSizeFollow })
+                    this.$store.dispatch("getFollowingList", { id:this.userIDSelected,userCurrentID:this.user? this.user.userID : null, page: this.pageFollow, pageSize: this.pageSizeFollow })
                 }
             }
         },
@@ -123,9 +124,9 @@ export default {
                 this.$store.commit('setPageFollowSize', newPageSize)
                 this.$store.commit('setPageFollowCurrent', 1)
                 if(this.isFollowedList) {
-                    this.$store.dispatch("getFollowedList", { page: this.pageFollow, pageSize: this.pageSizeFollow })
+                    this.$store.dispatch("getFollowedList", {id:this.userIDSelected,userCurrentID:this.user? this.user.userID : null, page: this.pageFollow, pageSize: this.pageSizeFollow })
                 }else {
-                    this.$store.dispatch("getFollowingList", { page: this.pageFollow, pageSize: this.pageSizeFollow })
+                    this.$store.dispatch("getFollowingList", {id:this.userIDSelected,userCurrentID:this.user? this.user.userID : null, page: this.pageFollow, pageSize: this.pageSizeFollow })
                 }
             }
         },

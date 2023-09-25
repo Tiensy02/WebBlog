@@ -153,8 +153,8 @@ export default createStore({
          * @param {Number} page trang hiện tại
          * @param {Number} pageSize tổng số trang trên bản ghi
          */
-        async getFollowedList({commit}, {id,page, pageSize}) {
-            await new FollowService().getUserFollowed(id,page,pageSize)
+        async getFollowedList({commit}, {id,userCurrentID,page, pageSize}) {
+            await new FollowService().getUserFollowed(id,userCurrentID,page,pageSize)
             .then(res => {
                 commit("setIsFollowedList", true)
                 commit("setFollowList",res.follows)
@@ -169,8 +169,8 @@ export default createStore({
          * @param {Number} page trang hiện tại
          * @param {Number} pageSize
          */
-        async getFollowingList({commit}, {id,page, pageSize}) {
-            await new FollowService().getUserFollowing(id,page,pageSize)
+        async getFollowingList({commit}, {id,userCurrentID,page, pageSize}) {
+            await new FollowService().getUserFollowing(id,userCurrentID,page,pageSize)
             .then(res => {
                 commit("setIsFollowedList",false)
                 commit("setFollowList",res.follows)

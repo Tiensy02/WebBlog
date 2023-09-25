@@ -21,9 +21,9 @@ namespace NTSY.WebBlog.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/user-following")]
-        public async Task<FollowWithPage> GetUserFlollowed(Guid id, int page, int pageSize)
+        public async Task<FollowWithPage> GetUserFlollowed(Guid id, Guid userCurrentID, int page, int pageSize)
         {
-            var (result,totalFollow) = await _followsService.GetUserFlollowed(id, page, pageSize);
+            var (result,totalFollow) = await _followsService.GetUserFlollowed(id, userCurrentID, page, pageSize);
             return new FollowWithPage() { Follows = result, TotalFollow = totalFollow };
 
         }
@@ -33,9 +33,9 @@ namespace NTSY.WebBlog.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/user-followed")] 
-        public async Task<FollowWithPage> GetUserFollowing(Guid id, int page, int pageSize)
+        public async Task<FollowWithPage> GetUserFollowing(Guid id,Guid userCurrentID, int page, int pageSize)
         {
-            var (result,totalFollow) = await _followsService.GetUserFollowing(id, page, pageSize);
+            var (result,totalFollow) = await _followsService.GetUserFollowing(id, userCurrentID, page, pageSize);
             return new FollowWithPage() { Follows = result, TotalFollow = totalFollow };
         }
     }

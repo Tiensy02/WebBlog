@@ -8,9 +8,9 @@ class FollowService extends BaseService{
      * @param {GUID} userID id của người được theo dõi 
      * @returns 
      */
-    async getUserFollowing(id, page, pageSize){
+    async getUserFollowing(id,userCurrentID, page, pageSize){
         const url = this.endpoint(`/${id}/user-following`)
-        const params = {id, page, pageSize}
+        const params = {id,userCurrentID, page, pageSize}
         const res = await this.baseAxios.get(url,{params})
         return res.data
     }
@@ -19,9 +19,9 @@ class FollowService extends BaseService{
      * @param {GUID} userID id của người đi theo dõi
      * @returns 
      */
-    async getUserFollowed(id, page, pageSize) {
+    async getUserFollowed(id,userCurrentID ,page, pageSize) {
         const url = this.endpoint(`/${id}/user-followed`)
-        const params = {id, page, pageSize}
+        const params = {id, userCurrentID,page, pageSize}
         const res = await this.baseAxios.get(url, {params})
         return res.data
     }

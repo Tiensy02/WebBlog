@@ -13,12 +13,12 @@ namespace NTSY.WebBlog.Domain
         /// </summary>
         /// <param name="userFlollowID"> id của người dùng được flollow</param>
         /// <returns></returns>
-        Task<(IEnumerable<FollowModel>,int)> GetUserFlollowed(Guid userFlollowID,int page , int pageSize );
+        Task<(IEnumerable<FollowModel>,int)> GetUserFlollowed(Guid userFlollowID,Guid userCurrentID, int page , int pageSize );
         /// <summary>
         /// hàm lấy danh sách người dùng mà user có id là userFlollowID đang flollow
         /// </summary>
         /// <param name="userFollowingID"></param>
         /// <returns></returns>
-        Task<(IEnumerable<FollowModel>,int)> GetUserFollowing(Guid userFollowingID, int page, int pageSize);
+        Task<(IEnumerable<FollowModel>,int)> GetUserFollowing(Guid userFollowingID, Guid userCurrentID, int page, int pageSize);
     }
 }
