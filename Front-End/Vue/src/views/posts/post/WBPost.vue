@@ -46,7 +46,7 @@
        </div>
 
     </div>
-</template>
+</template> 
 <script>
 import Comments from '../../comments/Comments.vue';
 import convertDate from '../../../helpper/convert-date.js';

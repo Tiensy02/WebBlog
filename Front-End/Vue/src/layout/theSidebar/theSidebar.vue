@@ -15,7 +15,7 @@
                 <div class="comment-wrap">
                     <cloud-image :path="comment.userAvatar"></cloud-image>
                     <div class="comment-info">
-                        <p class="user-comment">
+                        <p class="user-comment" @click="onClickUser(comment.userID)">
                             {{ comment.userName }}
                         </p>
                         <p class="comment-title">
@@ -79,6 +79,9 @@ export default {
                 console.log(err)
                 this.posts = []
             })
+        },
+        onClickUser(userID){
+            this.$router.push({name:'user-page', params:{userID:userID}})
         }
     }
 }

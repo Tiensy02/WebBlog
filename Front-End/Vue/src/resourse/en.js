@@ -9,6 +9,7 @@ const en = {
       resource:'Resources',
       feedBack:'FeedBack',
       newPost:'New Post',
+      emptyList:"List Empty",
       help:'Help',
       links:'Links',
       newComment:"New Comments",
@@ -60,7 +61,7 @@ const en = {
       serverError: {
         defaultError: "Network error, please try again later.",
       },
-  
+      loginError:"You are not logged in, please try again later",
       importExcel: {
         selectSourceFile: {
           fileNotFound: "File not selected.",

@@ -59,7 +59,6 @@ export default {
         }else {
             this.postList.style.height = "calc(100%  - 40px)"
             this.postList.style.marginLeft = "12%"
-            console.log("heheh")
         }
     },
     data() {
@@ -104,8 +103,12 @@ export default {
         async handlerClickPost(postID) {
             this.$router.push({ name: 'post', params: { postID: postID } });
         },
+        /**
+         * @description hàm thực hiện chuyển đến trang cá nhân của người dùng được chọn
+         * @param {GUID} userID id của người dùng được chọn
+         */
         handlerClickUser(userID) {
-
+            this.$router.push({name:'user-page', params:{userID:userID}})
         },
         /**
          * @description hàm thực hiện chuyển điểm về dạng từ 1 - 5, phần thập phân nếu có sẽ là phần .5

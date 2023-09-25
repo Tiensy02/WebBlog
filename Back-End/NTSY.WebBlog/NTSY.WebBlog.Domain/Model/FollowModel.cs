@@ -16,6 +16,7 @@ namespace NTSY.WebBlog.Domain
         public string UserAvatar { get; set; }
         // người dùng hiện thời follow hay không, 1 - có , 0 - không
         public int IsFollowedByUser { get; set; }
+        public Guid UserID { get; set; }
 
     }
 }

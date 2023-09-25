@@ -1,0 +1,36 @@
+.follows-wrap{
+    display: flex;
+    column-gap: 12px;
+    width:100%;
+    flex-wrap: wrap;
+}
+.follow-items{
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+.btn-following{
+    background-color: transparent;
+    border: 1px solid #ccc;
+    min-width: 80px;
+    max-width: 80px;
+}
+.btn-following:hover{
+    background-color: #dddcdc  ;
+}
+.btn-followed{
+    min-width: 80px;
+    max-width: 80px;
+}
+.user-avatar{
+    cursor: pointer;
+}
+.list-empty{
+    font-size: 16px;  
+}

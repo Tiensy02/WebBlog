@@ -12,6 +12,7 @@ const vi = {
       newComment:"Bình luận mới",
       links:'Liên hệ',
       newPost:'Bài viết mới',
+      emptyList:"Danh sách trống",
       gender: {
         male: "Nam",
         female: "Nữ",
@@ -60,6 +61,7 @@ const vi = {
       serverError: {
         defaultError: "Lỗi đường truyền, vui lòng thử lại sau.",
       },
+      loginError:"Bạn chưa đăng nhập, vui lòng thử lại sau",
   
       importExcel: { 
         selectSourceFile: {
