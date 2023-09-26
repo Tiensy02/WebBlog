@@ -14,6 +14,7 @@ namespace NTSY.WebBlog.Application
         {
             CreateMap<Follows,FollowInsertDto>();
             CreateMap<FollowModel,FollowInsertDto>();
+            CreateMap<FollowInsertDto, Follows>();
         }
     }
 }
