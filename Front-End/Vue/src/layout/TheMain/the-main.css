@@ -1,6 +1,6 @@
 .main-content{
     height: 100%;
-    min-width: calc(100vw - 300px + 16px );
+    min-width: calc(100vw - 300px - 200px );
     padding: 16px;
     padding-right: 0;
     padding-bottom: 0;

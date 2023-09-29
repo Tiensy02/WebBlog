@@ -15,6 +15,13 @@ import PostList from '../../views/posts/postList/PostList.vue';
 import WBPost from '../../views/posts/post/WBPost.vue';
 export default {
     name: "the-main",
+    async mounted() {
+    if (this.user != null) {
+      await this.$store.dispatch("getUserCurrentFollowsAsync", {
+        userCurrentID: this.user.userID
+      })
+    }
+  },
     data() {
         return {
             postID: "",
@@ -68,10 +75,13 @@ export default {
         },
         userIDSelected(){
             return this.$store.state.userIDSelected
+        },
+        userCurrentFollows(){
+            return this.$store.state.userCurrentFollows
         }
     },
     methods: {
-        // hàm thực hiện trở về trang trước nó
+        // hàm thực hiện khi click chuyển trang
         handlerclickPage(isClickPrePage) {
             if (this.isPostList) {
                 // nếu đang ở danh sách bài viết thì sẽ cập nhật trang theo danh sách bài viết
@@ -105,6 +115,7 @@ export default {
                 }
             }
         },
+        // hàm thực hiện khi update page size của trang
         updatePageSize(newPageSize) {
             if(this.isPostList) {
                 this.$store.commit('setPagePostSize', newPageSize)

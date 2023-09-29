@@ -1,5 +1,5 @@
 <template>
-    <div class="notification-wrap">
+    <div class="notification-wrap" ref="notification">
         <div class="notification-header">
             {{ this.$t("userForm.notification") }}
         </div>
@@ -24,8 +24,16 @@
 <script>
 import convertDate from '../../helpper/convert-date.js'
 import NotificationService from '../../service/notification-service.js'
+import { ref } from 'vue';
+
 export default {
     name:"wb-notification",
+    setup(){
+        const notification = ref(null);
+        return {
+            notification,
+        };
+    },
     data(){
         return {
             notifications :this.propNotifications
@@ -52,7 +60,12 @@ export default {
         
     },
     methods:{
+        /**
+         * @description hàm thực hiện lấy thông báo 
+         * @param {Number} notificationType kiểu thông báo
+         */
         getNotificationTitle(notificationType){
+            window.addEventListener("click",this.clickOutNotification)
             if(notificationType == this.$_WBEnum.NOTIFICATION.FOLLOW_NOTI) {
                 return this.$t("userMenu.notiFollow")
             }else if (notificationType == this.$_WBEnum.NOTIFICATION.RATING_NOTI) {
@@ -60,9 +73,20 @@ export default {
             } else {
                 return this.$t("userMenu.notifiComment")
             }
+            
         },
         getDateNotifi(dateString) {
            return convertDate(dateString)
+        },
+       
+        clickOutNotification(e) {
+            if (e.target != this.notification) {
+                this.closeNotification()
+            }
+        },
+        closeNotification(){
+            window.removeEventListener("click",this.clickOutNotification)
+            this.$emit("closeNotification")
         }
     }
 }

@@ -11,7 +11,7 @@ export default {
 
     data(){ 
         return{
-            urlDefaultPost : 'https://placehold.co/160x100',
+            urlDefaultPost : 'https://nguyentiensy.000webhostapp.com/anonymous-user.jpg',
             borderRadius :"50%"
         }
     },

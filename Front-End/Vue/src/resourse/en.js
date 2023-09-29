@@ -121,8 +121,18 @@ const en = {
       delete:"Delete",
       errorDeleteComment:"Delete failed",
       fix:"Fix",
-      unFollow:"unFollow"
-
+      unFollow:"unFollow",
+      deletePost:"Delete Post",
+      success:"Success"
+    },
+    notification:{
+      follow:"%s has been following you",
+      commentPost:"%s commented on your post",
+      commentReply:"%s has replied to your comment",
+      ratting:"%shas rated your post"
+    },
+    warn:{
+      deletePost:"Once deleted, posts will not be restored. Do you want to delete the post?"
     }
 }
 export default en

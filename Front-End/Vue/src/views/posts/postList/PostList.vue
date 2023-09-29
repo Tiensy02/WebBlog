@@ -9,10 +9,15 @@
                     <div class="post-author-wrap">
                         <div class="post-author">
                             {{ post.userName }}
+
                         </div>
                         <div class="post-date">
                             {{ this.converDatePost(post.createDate) }}
                         </div>
+                        <wb-icon v-if="isPostListOfUser && userCurrent != null && userCurrent.userID == post.userID"
+                            iconName="icon-more-action"
+                            @handlerClickItemOfContextMenuOnIcon="handlerClickItemOfContextMenuOnIcon($event, post)"
+                            :isContextMenu="true" :itemOfIcon="postActions" widthContextMenu="100px"></wb-icon>
                     </div>
                     <div class="post-title" @click="handlerClickPost(post.postID)">
                         {{ post.postTitle }}
@@ -33,10 +38,18 @@
             </div>
         </div>
         <wb-loadding :isLoadding="isLoadding"></wb-loadding>
+        <wb-dialog v-if="isShowDialog" :dialogTitle="$t('userAction.deletePost')" :dialogMess="$t('warn.deletePost')"
+            :hasMoreButton="true" :textButtonPrimary="$t('userAction.delete')"
+            @handlerClickButtonPrimary="deletePost"></wb-dialog>
     </div>
+    <postForm :form-name="$_WBEnum.POST_ACTION.FIX" v-if="isShowPostForm" :postTitleDefaule="postTitle"
+        :postContentDefault="postContent" :postID="postID" @closePostForm="closePostForm"></postForm>
 </template>
 <script>
+import postForm from '../../postForm/postForm.vue';
 import converDate from '../../../helpper/convert-date.js';
+import PostService from '../../../service/post-service.js';
+import createToast from '../../../helpper/createToastMess.js';
 import { ref } from 'vue';
 export default {
     name: "post-list",
@@ -53,18 +66,28 @@ export default {
         // thực hiện set trạng thái phân trang
         this.$store.commit('setIsShowPaging', true)
         this.$store.commit('setIsPostList', true)
-        if(this.isPostListOfUser) {
+        if (this.isPostListOfUser) {
             this.postList.style.height = "100%"
             this.postList.style.marginLeft = "0"
-        }else {
+        } else {
             this.postList.style.height = "calc(100%  - 40px)"
-            this.postList.style.marginLeft = "12%"
+            this.postList.style.marginLeft = "170px"
         }
+        
     },
     data() {
         return {
             isLoadding: false,
-
+            postActions: [
+                { id: this.$_WBEnum.POST_ACTION.FIX, content: this.$t('userAction.fix') },
+                { id: this.$_WBEnum.POST_ACTION.DELETE, content: this.$t('userAction.delete'), info: "danger" },
+            ],
+            userCurrent: JSON.parse(localStorage.getItem('user')),
+            isShowPostForm: false,
+            postTitle: "",
+            postContent: '',
+            postID: "",
+            isShowDialog: false
         };
 
     },
@@ -86,6 +109,9 @@ export default {
         },
         isPostListOfUser() {
             return this.$store.state.isPostListOfUser
+        },
+        userIDSelected(){
+            return this.$store.state.userIDSelected
         }
     },
     methods: {
@@ -108,7 +134,7 @@ export default {
          * @param {GUID} userID id của người dùng được chọn
          */
         handlerClickUser(userID) {
-            this.$router.push({name:'user-page', params:{userID:userID}})
+            this.$router.push({ name: 'user-page', params: { userID: userID } })
         },
         /**
          * @description hàm thực hiện chuyển điểm về dạng từ 1 - 5, phần thập phân nếu có sẽ là phần .5
@@ -135,23 +161,58 @@ export default {
          * @description hàm thực hiện lấy danh sách bài viết để sử dụng cho component postList
          */
         async getPostList() {
-            this.isLoadding = true; 
-            if ( this.isPostListOfUser ) {
-            console.log("jeele")
-                await this.$store.dispatch("getPostOfUser",{
-                    id:this.$route.params.userID,
-                    page:this.pagePost,
-                    pageSize:this.pageSizePost
+            this.isLoadding = true;
+            if (this.isPostListOfUser) {
+                await this.$store.dispatch("getPostOfUser", {
+                    id: this.$route.params.userID,
+                    page: this.pagePost,
+                    pageSize: this.pageSizePost
                 });
-            }else {
+            } else {
                 await this.$store.dispatch("getPostListAsync", {
                     page: this.pagePost,
                     pageSize: this.pageSizePost
                 });
             }
             this.isLoadding = false;
+        },
+        handlerClickItemOfContextMenuOnIcon(id, post) {
+            if (id == this.$_WBEnum.POST_ACTION.DELETE) {
+                this.isShowDialog = true
+                this.postID = post.postID
+            }
+            else if (id = this.$_WBEnum.POST_ACTION.FIX) {
+                this.postID = post.postID
+                this.postTitle = post.postTitle
+                this.postContent = post.postContent
+                this.isShowPostForm = true
+            }
+        },
+        deletePost() {
+            new PostService().delete(this.postID)
+                .then(res => {
+                    createToast(this.$t('userAction.success'), "success")
+                    this.$store.commit("setIsPostListOfUser", true)
+                    this.$store.dispatch("getPostOfUser", {
+                        id: this.userIDSelected,
+                        page: this.pagePost,
+                        pageSize: this.pageSizePost
+                    });
+                    this.isShowDialog = false
+                })
+                .catch(err => {
+                    console.log(err);
+                    createToast(this.$t('validate.errorCommon'), "danger")
+                })
+        },
+        closePostForm() {
+            this.isShowPostForm = false
+
         }
     },
+    components: {
+        postForm
+    }
 }
 </script>
 <style scoped>@import url('./post-list.css');</style>

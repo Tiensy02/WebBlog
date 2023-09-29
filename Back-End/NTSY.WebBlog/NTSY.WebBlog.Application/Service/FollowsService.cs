@@ -15,6 +15,12 @@ namespace NTSY.WebBlog.Application
         {
             _followsRepository = followsRepository; 
         }
+
+        public async Task DeleteFollowAsync(Guid followingID, Guid followedID)
+        {
+          await _followsRepository.DeleteFollowAsync(followingID, followedID);
+        }
+
         /// <summary>
         /// hàm lấy danh sách người dùng đang follow user
         /// </summary>

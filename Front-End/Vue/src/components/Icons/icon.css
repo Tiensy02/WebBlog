@@ -157,3 +157,8 @@
 .WB-icon.no-active{
 	opacity: 0.5;
 }
+.icon-more-action{
+	background: url('../../assets/image/sprites.06b14dc5.svg') no-repeat -171px -58px;
+	width: 18px;
+	height: 4px;
+}

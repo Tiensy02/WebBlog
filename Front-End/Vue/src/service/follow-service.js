@@ -25,5 +25,12 @@ class FollowService extends BaseService{
         const res = await this.baseAxios.get(url, {params})
         return res.data
     }
+    async deleteFollowAsync(followingID,followedID) {
+        const url = this.endpoint(`/${followingID}/user-following`)
+        const params = {followingID,followedID}
+        const res = await this.baseAxios.delete(url,{params})
+        return res
+
+    }
 }
 export default FollowService

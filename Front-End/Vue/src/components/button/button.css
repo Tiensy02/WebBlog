@@ -1,5 +1,5 @@
 .btn{
-    min-width:40px;
+    min-width:50px;
     border: unset;
     border-radius: 4px;
     background-color: var(--normal-color);
@@ -139,4 +139,14 @@
 .btn-transparent{
     background-color: transparent;
     color: black;
+}
+.btn-followed{
+    min-width: 80px;
+    max-width: 80px;
+}
+.btn-following{
+    background-color: transparent;
+    border: 1px solid #ccc;
+    min-width: 80px;
+    max-width: 80px;
 }

@@ -15,9 +15,9 @@ import WBEnum from './enum/enum.js'
 import router from './router/index.js'
 import RatingStar from './components/ratingStar/RatingStar.vue'
 import CommentWrite from './views/comments/CommentWrite.vue'
-import WBTable from './components/table/WBTable.vue'
 import DropdownList from './components/dropdownList/DropdownList.vue'
 import WBPaging from './components/paging/WBPaging.vue'
+import dialog from './components/dialog/dialog.vue'
 const app = createApp(App)
 app.component("wb-icon",WBIcon)
 app.component("context-menu",contextMenu)
@@ -29,9 +29,9 @@ app.component("wb-loadding",WBLoadding)
 app.component("text-area", TextArea)
 app.component("rating-star",RatingStar)
 app.component("comment-write",CommentWrite)
-app.component("wb-table",WBTable)
 app.component("wb-paging",WBPaging)
 app.component("dropdown-list",DropdownList)
+app.component("wb-dialog", dialog)
 app.use(store)
 app.use(router)
 app.use(i18n)

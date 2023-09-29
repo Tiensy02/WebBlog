@@ -69,7 +69,7 @@ async deleteMultiple(ids) {
     });
     return res
 }
-
+a
 }
 
 export default BaseService;

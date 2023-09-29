@@ -1,6 +1,6 @@
 .post-list-wrapper{
     height: calc(100% - 40px);
-    margin-left: 12%;
+    margin-left: 170px;
     overflow: scroll;
 
 }
@@ -21,7 +21,9 @@
 }
 .post-author-wrap{
     display: flex;
-    column-gap: 24px;
+    column-gap: 12px;
+    height: 20px;
+    align-items: center;
 }
 .post-author{
     color :var(--primary-color)

@@ -75,6 +75,7 @@ export default {
                     }else{
                         if( localStorage.getItem("user") ) {
                             localStorage.removeItem("user")
+
                         } else{
                             const userInfo = res
                             localStorage.setItem("user",JSON.stringify(userInfo))
@@ -88,7 +89,6 @@ export default {
                     this.isLoadding = false
                 })
             }else {
-                console.log("co vao day khong")
                 // thực hiện kiểm tra xem form có lỗi không
                 if (this.errorElement.length == 0) {
                     this.isLoadding = true

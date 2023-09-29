@@ -62,7 +62,6 @@ class PostService extends BaseService{
         const params = {userID, page, pageSize}
 
         const res = await this.baseAxios.get(url, {params})
-        console.log(res)
         return res.data
     }
 }

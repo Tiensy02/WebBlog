@@ -1,7 +1,7 @@
 <template>
     <div class="text-area-wrap">
         <label v-if="isLabel" for="" class="form-label">{{ labelText }}</label>
-        <textarea ref="textArea" name="" :class="[{'has-error' :isValidate && errMess !='' }, 'form-textarea']" maxlength="10000"
+        <textarea ref="textArea" name="" :class="[{'has-error' :isValidate && errMess !='' }, 'form-textarea']" maxlength="60000"
             :placeholder="(disabled) ? '' : $t('userAction.writeResponse')" :rows="rowNumber" v-model="valueTextAre"
             :disabled="disabled" @blur="validateValue(valueTextAre)">
         </textarea>

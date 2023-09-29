@@ -8,7 +8,7 @@
                 <p class="user-name">{{ follow.userName }}</p>
                 <wb-button v-if="follow.isFollowedByUser == 0 " moreClass="btn-followed" typeClassButton="btn-primary" textButton="Follow"
                 @handlerClickButton="clickFollowButton(follow.isFollowedByUser,follow)"></wb-button>
-                <wb-button v-else moreClass="btn-following" textButton="Following"></wb-button>
+                <wb-button v-else moreClass="btn-following" textButton="Following" @handlerClickButton="clickFollowButton(follow.isFollowedByUser,follow)"></wb-button>
             </div>
         </div>
         <div v-else class="list-empty"> 
@@ -19,6 +19,8 @@
 <script>
 import FollowService from '../../service/follow-service.js'
 import createToast from '../../helpper/createToastMess.js';
+import NotificationService from '../../service/notification-service.js'
+import sprintf from 'sprintf-js'
 export default {
     name:"follow-list",
     data(){
@@ -51,16 +53,11 @@ export default {
        
     },
     methods:{
-        async getFollows(){
-            this.isLoading = true
-            this.$store.commit("setIsPostList",false)
-             if(this.isFolowedList) {
-                await this.$store.dispatch("getFollowedList", { id:this.userIDSelected,userCurrentID:this.userCurrent? this.userCurrent.userID : null,page: this.pageFollow, pageSize: this.pageSizeFollow })
-            }else {
-                await this.$store.dispatch("getFollowingList", {id:this.userIDSelected,userCurrentID:this.userCurrent? this.userCurrent.userID : null, page: this.pageFollow, pageSize: this.pageSizeFollow })
-            }
-            this.isLoading= false
-        },
+       /**
+        * @description hàm thực hiện folow hoặc unfollow khi click vào các button tương ứng
+        * @param {Numbe } isFollowed trạng thái có user hiện tại có đang follow hay không
+        * @param {Object} follow đối tượng follow
+        */
         clickFollowButton(isFollowed, follow){
             if(this.userCurrent){
                 if(isFollowed== 0 ) {
@@ -70,11 +67,26 @@ export default {
                     }
                     new FollowService().post(followAdd)
                     .then(res => {
-                        console.log("thanh cong");
+                        follow.isFollowedByUser = 1
+                        new NotificationService().postNotification(follow.userID,sprintf.sprintf(this.$t("notification.follow"),this.userCurrent.userName), 
+                        this.$_WBEnum.NOTIFICATION.FOLLOW_NOTI)
                     })
                     .catch(err => {
-                        console.log("that bai");
+                        console.log(err);
+                        createToast(this.$t('validate.errorCommon'), 'danger')
                     })
+                    
+                } else {
+                    
+                        new FollowService().deleteFollowAsync(this.userCurrent.userID,follow.userID)
+                        .then(res => {
+                            follow.isFollowedByUser = 0
+                        })
+                        .catch(err => {
+                            createToast(this.$t('validate.errorCommon'), 'danger')
+                        })
+                    
+                   
                 }
             }else {
                 createToast(this.$t('errorHandle.loginError'), 'danger')

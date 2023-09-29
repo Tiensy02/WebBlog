@@ -15,11 +15,11 @@
             <div class="comment-respone-action flex-row flex-col-gap8 ">
                 <p @click="commentRoot.isReply = true" v-if="!commentRoot.isReply && user != null" class="reply-comment">{{
                     this.$t('userAction.reply') }}</p> 
-                <p @click="deleteComment(commentRoot.commentID,commentRoot)" v-if="user != null &&       user.userID == commentRoot.userID" class="delete-comment">{{
+                <p @click="deleteComment(commentRoot.commentID,commentRoot)" v-if="user != null && user.userID == commentRoot.userID" class="delete-comment">{{
                     this.$t("userAction.delete") }}</p>
             </div>
         </div>
-        <CommentWrite :commentParentID="commentRoot.commentID" @addCommentResponeSucess="addCommentResponeSucess($event, commentRoot)" :propPostID="propPostID"
+        <CommentWrite :userCommentID="commentRoot.userID" :commentParentID="commentRoot.commentID" @addCommentResponeSucess="addCommentResponeSucess($event, commentRoot)" :propPostID="propPostID"
             @closeCommentRespone="commentRoot.isReply = false" v-if="commentRoot.isReply" typeComment="reply">
         </CommentWrite>
         <div v-if="commentRoot.numberCommentChild > 0">

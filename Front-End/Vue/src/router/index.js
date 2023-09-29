@@ -30,6 +30,11 @@ const router = createRouter({
             name:"post-of-user",
             props:true
         },
+        {
+            path:'/Post/search/:searchText',
+            component:PostList,
+            name:"post-result",
+        }
       ]
 })
 export default router; 

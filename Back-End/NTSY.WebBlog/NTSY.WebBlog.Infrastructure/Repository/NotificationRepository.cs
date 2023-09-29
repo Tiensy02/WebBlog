@@ -17,18 +17,22 @@ namespace NTSY.WebBlog.Infrastructure
         public async Task<IEnumerable<Notification>> GetNotificationByUserID(Guid userID)
         {
             var param = new DynamicParameters(); 
-            param.Add("UserID",userID.ToString());
+            param.Add("UserID",userID);
             var result = await _uow.Connection.QueryAsync<Notification>("Proc_Notification_GetNotificationByUserID", param, commandType: System.Data.CommandType.StoredProcedure);
             return result;
         }
 
         public async Task UpdateNotificationStatus(List<Guid> ids)
         {
+            if(ids.Count > 0)
+            {
+
             var statusValue = (int)NotificationStatus.IsRead;
             var sql = $"UPDATE {TableName} SET NotificationStatus = {statusValue} WHERE NotificationID IN @ids ";
             var param = new DynamicParameters();
             param.Add("@ids", ids);
             await _uow.Connection.ExecuteAsync(sql, param);
+            }
         }
     }
 }

@@ -21,5 +21,12 @@ namespace NTSY.WebBlog.Application
         /// <param name="userFollowingID"></param>
         /// <returns></returns>
         Task<(IEnumerable<FollowModel>, int)> GetUserFollowing(Guid userFollowingID,Guid userCurrentID, int page, int pageSize);
+        /// <summary>
+        /// ham thực hiện xoá 1 luồng follow
+        /// </summary>
+        /// <param name="followingID">id của người đi theo dõi  </param>
+        /// <param name="followedID">id của người được theo dõi</param>
+        /// <returns></returns>
+        Task DeleteFollowAsync(Guid followingID, Guid followedID);
     }
 }

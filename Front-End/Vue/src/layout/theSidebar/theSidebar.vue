@@ -41,7 +41,6 @@ export default {
     },
     async created(){
         await this.getPostList()
-        console.log(this.posts)
         this.getComments(5)    
     },
     methods:{

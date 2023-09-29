@@ -150,7 +150,6 @@ export default {
         },
         addClassSelectedForLabel(core) {
             for (let i = 0; i < core * 2; i++) {
-
                 this.labelRatings[i]._value.classList.add("rating-selected")
             }
         },
@@ -164,7 +163,8 @@ export default {
                 this.labelRatings.forEach(elem => {
                     elem._value.classList.add("is-rating")
                 })
-                new PostService().updatePostRating(e.target.value,this.postID)
+                let valueCore = this.numberRatingOfPost>0? e.target.value : e.target.value * 2
+                new PostService().updatePostRating(valueCore,this.postID)
                 .then(res => {
                     createToast(this.$t("userAction.ratingInserSuccess"))
                     this.$emit("ratingSuccess")
@@ -190,6 +190,10 @@ export default {
         postID: {
 
         },
+        numberRatingOfPost:{
+            type:Number,
+
+        }
 
     },
     components: {

@@ -11,7 +11,7 @@
             <div class="notiffication-wrapper" @click="showNotification"> 
                 <div v-if="getNotificationNotRead() > 0" class="icon-count">{{ this.getNotificationNotRead() }}</div>
                 <wb-icon iconName="icon-notifi" :isHover="true"></wb-icon> 
-                <WBNotification v-if="isShowNotification" :propNotifications="this.notifications"></WBNotification>
+                <WBNotification @closeNotification="showNotification" v-if="isShowNotification" :propNotifications="this.notifications"></WBNotification>
             </div>
             <wb-icon iconName="icon-write" :isHover="true" @handllerClickIcon="isShowPostForm = !isShowPostForm"></wb-icon>
             <wb-button typeButton="buttonWithIcon" :isContextMenu="true" :iconName="iconNameLang" color="black"
@@ -98,6 +98,7 @@ export default {
                 this.$store.commit("setPagePostCurrent",1)
                 this.$store.commit("setTextSearch",value)
                 this.$store.dispatch("getPostForSearch", {textSearch:value, page: this.pagePost, pageSize: this.pageSizePost})
+                this.$router.push({name:'post-result',params:{searchText:value}})
             }else {
                 this.$store.commit("setIsSearch",false)
                 this.$store.commit("setPagePostCurrent",1)

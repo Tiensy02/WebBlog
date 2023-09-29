@@ -38,5 +38,12 @@ namespace NTSY.WebBlog.Controllers
             var (result,totalFollow) = await _followsService.GetUserFollowing(id, userCurrentID, page, pageSize);
             return new FollowWithPage() { Follows = result, TotalFollow = totalFollow };
         }
+        [HttpDelete("{followingID}/user-following")]
+         public async Task<IActionResult> DeleteFollowAsync(Guid followingID, Guid followedID)
+        {
+
+            await _followsService.DeleteFollowAsync(followingID, followedID);
+            return StatusCode(StatusCodes.Status200OK);
+        }
     }
 }

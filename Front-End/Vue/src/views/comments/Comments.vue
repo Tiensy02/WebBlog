@@ -1,7 +1,7 @@
 <template>
     <div class="comment-list-wrap">
         <p class="comment-title">Comments</p>
-        <comment-write :propPostID="postID" typeComment="post" @addCommentPostSucess="addCommentPostSucess($event)"></comment-write>
+        <comment-write :userID="userID" :propPostID="postID" typeComment="post" @addCommentPostSucess="addCommentPostSucess($event)"></comment-write>
         <CommentRoot  @deleteSuccess="deleteSuccess($event)" :propPostID="postID" :propCommentRoots="comments"></CommentRoot>
     </div>
 </template>
@@ -26,6 +26,10 @@ export default {
             type:String,
             default:""
         },
+        // id cua nguoi dang bai viet
+        userID:{
+            type:String,
+        }
     },
     watch:{
         postID(newValue) {

@@ -21,9 +21,12 @@
     </div>
 </template>
 <script>
-import { v4 as uuidv4 } from 'uuid';
+import { stringify, v4 as uuidv4 } from 'uuid';
 import CommentService from '../../service/comment-service.js'
 import createToast from '../../helpper/createToastMess.js'
+import NotificationService from '../../service/notification-service.js';
+import sprintf from 'sprintf-js'
+
 export default {
     name: "comment-write",
     data() {
@@ -43,9 +46,17 @@ export default {
         propPostID: {
             required: true
         },
+        // id của người đăng bài viết
+        userID:{
+            type:String
+        },
         commentParentID: {
             type: String,
             default: ""
+        },
+        // id của người đăng bình luận
+        userCommentID:{
+            type: String
         }
     },
     methods: {
@@ -64,7 +75,6 @@ export default {
             }
 
             if (this.typeComment == "post") {
-                console.log(newComment)
                 new CommentService().postCommetRoot(newComment)
                     .then(res => {
                         newComment['userAvatar'] = this.user.userAvatar
@@ -72,8 +82,12 @@ export default {
                         newComment['createDate'] = this.createDate()
                         this.$emit("addCommentPostSucess", newComment)
                         this.comment.commentContent = ""
+                        new NotificationService().postNotification(this.userID, sprintf.sprintf(this.$t('notification.commentPost'),this.user.userName),
+                        this.$_WBEnum.NOTIFICATION.COMMENT_NOTI
+                        )
                     })
                     .catch(err => {
+                        console.log(err)
                         createToast(this.$t("userAction.errorComment"), "danger")
                     })
             } else {
@@ -83,8 +97,12 @@ export default {
                         newComment['userAvatar'] = this.user.userAvatar
                         newComment['userName'] = this.user.userName
                         newComment['createDate'] = this.createDate()
+                        console.log(this.commentParentID);
                         this.$emit("addCommentResponeSucess", newComment)
                         this.comment.commentContent = ""
+                        new NotificationService().postNotification(this.userCommentID, sprintf.sprintf(this.$t('notification.commentReply'),this.user.userName),
+                        this.$_WBEnum.NOTIFICATION.COMMENT_NOTI
+                        )
                     })
                     .catch(err => {
                         console.log(err)

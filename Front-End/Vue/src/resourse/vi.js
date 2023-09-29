@@ -120,8 +120,19 @@ const vi = {
       delete:"Xóa",
       errorDeleteComment:"Xóa không thành công",
       fix:"Sửa",
-      unFollow:"Bỏ theo dõi"
+      unFollow:"Bỏ theo dõi",
+      deletePost:"Xoá bài viết",
+      success:"thành công"
 
+    },
+    notification:{
+      follow:"%s đã theo dõi bạn",
+      commentPost:"%s đã bình luận bài viết của bạn",
+      commentReply:"%s đã trả lời bình luận của bạn",
+      ratting:"%s đã đánh giá bài viết của bạn"
+    },
+    warn:{
+      deletePost:"Bài viết sau khi xoá sẽ không được khôi phục, bạn có muốn xoá bài viết"
     }
 }  
 export default vi

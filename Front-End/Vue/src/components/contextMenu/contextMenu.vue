@@ -62,7 +62,7 @@ export default {
         },
         // các item có icon đi kèm hay không
         isIcon: {
-            type: Boolean,
+            type: Boolean, 
             default: false
         },
         //tên của thuộc tính lưu trữ tên icon

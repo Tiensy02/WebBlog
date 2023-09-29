@@ -9,6 +9,7 @@ namespace NTSY.WebBlog.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+  
     public class NotificationController : BaseController<NotificationInsertDto, Notification, Notification>
     {
         private readonly INotificationService _notificationService;

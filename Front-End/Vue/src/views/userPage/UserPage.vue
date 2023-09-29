@@ -1,16 +1,17 @@
 <template>
-    <div class="user-page-wrap">
+    <div :key="$route.params.userID" class="user-page-wrap">
         <div class="user-info-wrap">
             <div class="user-info">
                 <cloud-image width="52px" height = "52px" :path="user.userAvatar" ></cloud-image>
-                <div class="user-name">
+                <div class="user-name">   
                     {{ user.userName }}
                 </div>
             </div>
             <div class="user-action">
                 <wb-button v-if="userCurrent != null &&  userCurrent.userID == user.userID" typeClassButton="btn-secondary" :textButton="$t('userAction.fix')"></wb-button>
-                <wb-button v-else-if="!userCurrent || userCurrent.userID != user.userID" typeClassButton="btn-secondary" :textButton="$t('userMenu.notiFollow')"></wb-button>
-                <wb-button v-else :textButton="$t('userAction.unFollow')" typeClassButton="btn-secondary" :isDisabled="true"></wb-button>
+                <wb-button v-else-if="followObject == null " moreClass="btn-followed" typeClassButton="btn-primary" textButton="Follow"
+                @handlerClickButton="clickFollowButton"></wb-button>
+                <wb-button v-else moreClass="btn-following" textButton="Following" @handlerClickButton="clickFollowButton"></wb-button>
             </div>
         </div>
         <div class="user-page-list">
@@ -30,17 +31,23 @@ import PostList from '../posts/postList/PostList.vue'
 import createToast from '../../helpper/createToastMess.js'
 import UserService from '../../service/user-service.js'
 import FollowsList from '../follow/FollowsList.vue'
+import FollowService from '../../service/follow-service.js'
+import NotificationService from '../../service/notification-service.js'
+import sprintf from 'sprintf-js'
 export default {
     name:"user-page",
-    created(){
-        this.getUserbyUserID(this.$route.params.userID)
+    async created(){
+        this.$store.commit("setUserIDSelected",this.$route.params.userID)
+        this.getUserbyUserID(this.userIDSelected)
         this.$store.commit('setIsShowPaging', true)
-        this.$store.commit("setUserIDSelected", this.propUserID)
         this.$store.commit("setIsPostListOfUser",true)
         this.$store.commit("setPagePostCurrent",1)
         this.$store.commit("setPagePostSize",10)
-        this.$store.commit("setUserIDSelected",this.$route.params.userID)
-
+        if (this.userCurrent != null) {
+       await this.$store.dispatch("getUserCurrentFollowsAsync", {
+        userCurrentID: this.userCurrent.userID
+        })}
+        this.checkUserFollow(this.user.userID)
     },
     beforeUnmount(){
         this.$store.commit("setIsPostListOfUser",false)
@@ -48,9 +55,10 @@ export default {
     data(){
         return {
             userCurrent:JSON.parse(localStorage.getItem("user")),
-            user:{},
             isShowPosts:true,
-            isLoading:false
+            isLoading:false,
+            user:{},
+            followObject:null, 
         }
     },
 
@@ -88,10 +96,17 @@ export default {
         },
         userIDSelected(){
             return this.$store.state.userIDSelected
+        },
+        userCurrentFollows(){
+            return this.$store.state.userCurrentFollows
         }
+    
     },
-
+   
+       
     methods:{
+     
+
       /**
          * @description hàm thực hiện lấy thông tin của người dùng có id là userID
          * @param {GUID} userID id của người dùng 
@@ -125,7 +140,51 @@ export default {
             this.$store.commit("setIsPostList",false)
             await this.$store.dispatch("getFollowedList", { id:this.userIDSelected,userCurrentID:this.userCurrent? this.userCurrent.userID : null,page: this.pageFollow, pageSize: this.pageSizeFollow })
             this.isLoading= false
+        },
+        /**
+        * @description hàm thực hiện kiểm tra user đang đăng nhập có theo dõi chủ bài viết hay chưa nếu có trả về đối tượng follow, nếu không return null
+        * @param {GUID} userID id của người đăng bài viết
+        */
+       checkUserFollow(userID) {
+        if(this.userCurrentFollows != null ) {
+            this.userCurrentFollows.forEach((elem) => {
+                if(elem.userID == userID) {
+                   this.followObject = elem
+                }
+            });
         }
+       },
+        clickFollowButton(){
+        if(this.userCurrent != null ){
+
+            if( this.followObject  == null ) {
+                var followAdd = {
+                            userFollowID: this.userCurrent.userID,
+                            userFollowed:this.user.userID
+                        }
+                        new FollowService().post(followAdd)
+                        .then(res => {
+                            this.followObject = followAdd
+                            new NotificationService().postNotification(this.user.userID,sprintf.sprintf(this.$t("notification.follow"),this.userCurrent.userName), 
+                            this.$_WBEnum.NOTIFICATION.FOLLOW_NOTI)
+                           
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            createToast(this.$t('validate.errorCommon'), 'danger')
+                        })
+            } else {
+                new FollowService().deleteFollowAsync(this.userCurrent.userID, this.user.userID)
+                            .then(res => {
+                                this.followObject = null
+                                
+                            })
+                            .catch(err => {
+                                createToast(this.$t('validate.errorCommon'), 'danger')
+                            })
+            }
+        }
+       }
     },
     components:{
         PostList, FollowsList

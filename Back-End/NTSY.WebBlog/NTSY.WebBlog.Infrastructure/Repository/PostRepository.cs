@@ -11,6 +11,7 @@ namespace NTSY.WebBlog.Infrastructure
 {
     public class PostRepository : BaseRepository<Posts>, IPostRepository
     {
+        public override string ColumnID { get; protected set; } = "PostID";
         public PostRepository(IUnitOfWork uow) : base(uow)
         {
         }

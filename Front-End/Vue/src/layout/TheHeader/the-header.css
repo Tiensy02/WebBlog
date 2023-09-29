@@ -34,7 +34,15 @@
 }
 .icon-count{
     position: absolute;
-    color: var(--danger-color);
-    top: -4px;
-    right: -5px;
+    color: white;
+    top: -6px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--danger-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

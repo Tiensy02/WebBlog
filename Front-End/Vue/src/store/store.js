@@ -35,6 +35,7 @@ export default createStore({
         isFolowedList: false, // có phải đang ở danh sách người dùng đang folow người dùng được chọn hay không
         isPostListOfUser: false, // có phải muốn lấy danh sách bài viết của 1 người dùng cụ thể hay không 
         userIDSelected: "", // id của người dùng đang được xem trang cá nhân
+        userCurrentFollows:[], // danh sách những người mà user hiện thời đang follow
     },
 
     mutations: {
@@ -100,6 +101,10 @@ export default createStore({
         //set id của người dùng đang được xem trang cá nhân
         setUserIDSelected(state, newID) {
             state.userIDSelected = newID
+        },
+        // set danh sách những người mà user hiện thời đang follow
+        setUserCurrentFollows(state,newList){
+            state.userCurrentFollows =  newList
         }
     },
     actions: {
@@ -194,6 +199,20 @@ export default createStore({
                 .catch(err => {
                     console.log(err)
                 })
+        },
+        /**
+         * @description hàm thực hiện lấy danh sách những người mà user đang đăng nhập theo dõi
+         * @param {*} param0 
+         * @param {Object} {userCurrentID} id của user đang đăng nhập 
+         */
+        async getUserCurrentFollowsAsync({commit}, {userCurrentID }) {
+            await new FollowService().getUserFollowed(userCurrentID,userCurrentID)
+            .then(res => {
+                commit('setUserCurrentFollows', res.follows)
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
 
     },

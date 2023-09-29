@@ -41,7 +41,7 @@ namespace NTSY.WebBlog
             return StatusCode(StatusCodes.Status200OK);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await _baseService.DeleteAsync(id);
             return StatusCode(StatusCodes.Status200OK);
